@@ -1,5 +1,5 @@
 (require 'align-cljlet)
-
+(require 'datomic-snippets)
 (require 'clj-refactor)
 (add-hook 'clojure-mode-hook
           (lambda ()
@@ -38,3 +38,15 @@
 (setq-default whitespace-line-column 90)
 (global-whitespace-mode 1)
 (add-hook 'before-save-hook 'whitespace-cleanup)
+
+(defun kill-whitespace ()
+          "Kill the whitespace between two non-whitespace characters"
+          (interactive "*")
+          (save-excursion
+            (save-restriction
+              (save-match-data
+                (progn
+                  (re-search-backward "[^ \t\r\n]" nil t)
+                  (re-search-forward "[ \t\r\n]+" nil t)
+                  (replace-match "" nil nil))))))
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
