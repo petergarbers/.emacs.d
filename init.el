@@ -27,6 +27,7 @@
                       hlinum
                       powerline
                       clj-refactor
+                      datomic-snippets
                       yasnippet
                       buffer-move
                       align-cljlet
@@ -55,4 +56,3 @@
 (global-set-key (kbd "<M-s-left>") 'buf-move-left)
 (global-set-key (kbd "<M-s-up>") 'buf-move-up)
 (global-set-key (kbd "<M-s-down>") 'buf-move-down)
-
