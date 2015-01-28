@@ -25,7 +25,9 @@
     (insert "(user/reset)")
     (cider-repl-return)))
 
-(setq cider-known-endpoints '(("localhost" "9991")
+(setq cider-known-endpoints '(("peter-is-the-best.com" "4343")
+			      ("peter-is-the-best.com" "4344")
+			      ("localhost" "9991")
                               ("nr-t1" "9980")
                               ("nr-t2" "9981")
                               ("nr-t3" "9982")
@@ -50,3 +52,23 @@
                   (re-search-forward "[ \t\r\n]+" nil t)
                   (replace-match "" nil nil))))))
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+;; Teach compile the syntax of the kibit output
+(require 'compile)
+(add-to-list 'compilation-error-regexp-alist-alist
+         '(kibit "At \\([^:]+\\):\\([[:digit:]]+\\):" 1 2 nil 0))
+(add-to-list 'compilation-error-regexp-alist 'kibit)
+
+;; A convenient command to run "lein kibit" in the project to which
+;; the current emacs buffer belongs to.
+(defun kibit ()
+  "Run kibit on the current project.
+Display the results in a hyperlinked *compilation* buffer."
+  (interactive)
+  (compile "lein kibit"))
+
+(defun kibit-current-file ()
+  "Run kibit on the current file.
+Display the results in a hyperlinked *compilation* buffer."
+  (interactive)
+  (compile (concat "lein kibit " buffer-file-name)))
