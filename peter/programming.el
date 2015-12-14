@@ -1,6 +1,13 @@
 (require 'align-cljlet)
 (require 'datomic-snippets)
 (require 'clj-refactor)
+(require 'dockerfile-mode)
+(require 'aggressive-indent)
+
+(add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode)
+(add-hook 'clojure-mode-hook #'aggressive-indent-mode)
+(add-hook 'css-mode-hook #'aggressive-indent-mode)
+
 (add-hook 'clojure-mode-hook
           (lambda ()
             (clj-refactor-mode 1)
@@ -72,3 +79,6 @@ Display the results in a hyperlinked *compilation* buffer."
 Display the results in a hyperlinked *compilation* buffer."
   (interactive)
   (compile (concat "lein kibit " buffer-file-name)))
+
+;; Dockerfile-mode
+(add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
